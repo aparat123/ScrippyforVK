@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Scrippy for VK</string>
+    <string name="settings">Настройки</string>
+    <string name="exit">Закрыть</string>
+    <integer name="com_vk_sdk_AppId">6628914</integer>
+    <string name="prefs_theme_key">theme</string>
+    <string name="hello">Добро пожаловать!</string>
+</resources>

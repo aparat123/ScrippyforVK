@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="Основное">
+        <SwitchPreference
+            android:id="@+id/ThemeSwitch"
+            android:defaultValue="true"
+            android:key="switch"
+            android:onClick="restart"
+            android:textColor="?attr/primaryTextColor"
+            android:title="Ночной режим" />
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="logoutVK"
+            android:title="Выход из учетной записи"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="О приложении">
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="devVK"
+            android:title="Разработчик"
+            android:summary="Дима Голубенко" />
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="groupVK"
+            android:title="Scrippy for VK"
+            android:summary="Новости и обновления" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
