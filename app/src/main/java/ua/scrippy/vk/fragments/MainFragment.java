@@ -43,6 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import ua.scrippy.vk.Api;
 import ua.scrippy.vk.Person;
 
 import ua.scrippy.vk.R;
@@ -55,89 +57,30 @@ public class MainFragment extends Fragment {
     private RecyclerView rv;
     final String LOG_TAG = "MainFragment";
 
-    private static VKPhotoArray vkPhotoArray;
     List<Person> persons = new ArrayList<>();
     final String id = VKAccessToken.currentToken().userId;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.main_fragment,
+        View view = inflater.inflate(R.layout.main_fragment,
                 container, false);
 
         final RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
-        rv.setHasFixedSize(true);
         
-        persons = photosGet(id);
-
-        Log.d(LOG_TAG, "onCreateView");
-
+        
+        persons = Api.photosGet(id);
         RVAdapter adapter = new RVAdapter(persons);
-        rv.setAdapter(adapter);
+                rv.setAdapter(adapter);
+                Log.d(LOG_TAG, "adapter");
+
         return view;
     }
-
-    public  List<Person> photosGet(final String user_id){
-        final String id = user_id;
-        final int count = 50;
-        final List<Person> persons = new ArrayList<>();
-        final long[] imageDate = new long[count];
-        final String[] imageUrl = new String[count];
-        final String[] imageBigUrl = new String[count];
-
-        final VKRequest imageRequest = new VKRequest("photos.get", VKParameters.from(
-                VKApiConst.OWNER_ID, id,
-                VKApiConst.ALBUM_ID, "saved",
-                VKApiConst.REV, "1",
-                VKApiConst.EXTENDED, "0",
-                VKApiConst.PHOTO_SIZES, "0",
-                VKApiConst.COUNT, 50),
-                VKPhotoArray.class);
-        imageRequest.executeWithListener(new VKRequest.VKRequestListener() {
-            @Override
-            public void onComplete(VKResponse response) {
-                super.onComplete(response);
-                vkPhotoArray = (VKPhotoArray) response.parsedModel;
-                int i = 0;
-                for (VKApiPhoto vkPhoto : vkPhotoArray) {
-
-                    if (vkPhoto.src.getByType('w') != null) {
-                        imageUrl[i] = vkPhoto.src.getByType('w');
-                        imageBigUrl[i] = vkPhoto.src.getByType('w');
-                    }
-                    if (vkPhoto.src.getByType('w') == null) {
-                        imageUrl[i] = vkPhoto.src.getByType('z');
-                        imageBigUrl[i] = vkPhoto.src.getByType('z');
-                    }
-                    if (vkPhoto.src.getByType('z') == null) {
-                        imageUrl[i] = vkPhoto.src.getByType('y');
-                        imageBigUrl[i] = vkPhoto.src.getByType('y');
-                    }
-                    if (vkPhoto.src.getByType('y') == null) {
-                        imageUrl[i] = imageBigUrl[i] = vkPhoto.src.getByType('x');
-                    }
-                    if (vkPhoto.src.getByType('x') == null) {
-                        imageUrl[i] = vkPhoto.src.getByType('m');
-                    }
-                    imageDate[i] = vkPhoto.date * 1000;
-                    persons.add(new Person(user_id, imageDate[i], imageUrl[i]));
-                    i++;
-                }
-                Log.d(LOG_TAG, "photos");
-            }
-            @Override
-            public void onError(VKError error) {
-                super.onError(error);
-                Log.v("photosGet", "error");
-            }
-
-        });
-        return persons;
     }
 
 
-}
 
 

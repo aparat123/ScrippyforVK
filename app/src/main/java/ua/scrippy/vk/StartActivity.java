@@ -21,6 +21,7 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
@@ -133,6 +134,7 @@ public class StartActivity extends AppCompatActivity {
     public static ArrayList friendsGet(){
 
         final String id = VKAccessToken.currentToken().userId;
+
         final ArrayList friends = new ArrayList<>();
         final VKRequest request = new VKRequest("friends.get", VKParameters.from(
                 VKApiConst.USER_ID, id));
