@@ -26,11 +26,7 @@ public class LoginFragment extends Fragment {
     LoginFragment loginFragment;
     private static final String[] MyScope = new String[]{
             VKScope.FRIENDS,
-            VKScope.WALL,
-            VKScope.PHOTOS,
-            VKScope.NOHTTPS,
-            VKScope.MESSAGES,
-            VKScope.DOCS
+            VKScope.PHOTOS
     };
 
     @Override

@@ -18,7 +18,12 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;
+
+import java.io.IOException;
+
+import retrofit2.Response;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -57,6 +62,9 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+
+
 
             SwitchPreference themeSwitch = (SwitchPreference) findPreference("switch");
             themeSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

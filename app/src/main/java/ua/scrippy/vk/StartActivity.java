@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -35,11 +36,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ua.scrippy.vk.fragments.LoginFragment;
 import ua.scrippy.vk.fragments.MainFragment;
+import ua.scrippy.vk.models.PhotoModel;
+import ua.scrippy.vk.models.ResponsePhoto;
+import ua.scrippy.vk.models.UsersModel;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -48,7 +56,7 @@ public class StartActivity extends AppCompatActivity {
     public static Context context;
     private static String LOG_TAG = "MainFActivity";
     LoginFragment loginfragment;
-    MainFragment mainfragment;
+   // MainFragment mainfragment;
     SharedPreferences mSettings;
 
 
@@ -63,7 +71,7 @@ public class StartActivity extends AppCompatActivity {
         context = getApplicationContext();  // in onCreate in MainActivity
 
         loginfragment = new LoginFragment();
-        mainfragment = new MainFragment();
+//        mainfragment = new MainFragment();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
@@ -71,6 +79,11 @@ public class StartActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.mipmap.ic_settings_white_18dp);
       //  getSupportActionBar().setIcon(R.mipmap.ic_launcher_round);
         LoginState();
+
+      //  String token = VKAccessToken.currentToken().accessToken;
+
+
+
     }
 
 
@@ -119,7 +132,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.FrameLayout, mainfragment).commit();
+                        .replace(R.id.FrameLayout, new MainFragment()).commit();
             }
             @Override
             public void onError(VKError error) {
@@ -178,7 +191,7 @@ public class StartActivity extends AppCompatActivity {
                         break;
                     case LoggedIn:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.FrameLayout, mainfragment).commit();
+                                .replace(R.id.FrameLayout, new MainFragment()).commit();
                         break;
                     case Pending:
                         break;
