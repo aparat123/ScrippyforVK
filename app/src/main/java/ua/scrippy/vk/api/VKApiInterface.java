@@ -1,15 +1,14 @@
-package ua.scrippy.vk;
+package ua.scrippy.vk.api;
 
-import com.vk.sdk.VKAccessToken;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.Call;
 import ua.scrippy.vk.models.*;
 
-public interface VKApiRetrofit {
+public interface VKApiInterface {
     @GET("/method/users.get")
     Call<UsersModel> getUsers(@Query("user_ids") String user_ids,
                               @Query("access_token") String accessToken,
@@ -24,4 +23,8 @@ public interface VKApiRetrofit {
                                      @Query("count") String count,
                                      @Query("access_token") String accessToken,
                                      @Query("v") String version);
+    @GET("/method/friends.get")
+    Call<FriendsModel> getFriends(@Query("user_id") String user_id,
+                                              @Query("access_token") String accessToken,
+                                              @Query("v") String version);
 }

@@ -51,10 +51,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
-                .format(new Date(persons.get(i).age));
+        String result = new java.text.SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date(persons.get(i).age * 1000));
         personViewHolder.personName.setText("id=" + persons.get(i).name);
-        personViewHolder.personAge.setText(date);
+        personViewHolder.personAge.setText(result);
         Picasso.get().load(persons.get(i).photoUrl).into(personViewHolder.personPhoto);
     }
 
